@@ -93,7 +93,7 @@ export default function AnalysisClient({ data }: { data: CosplayData[] }) {
           <div style={{ flex: '1 1 300px', textAlign: 'center' }}>
             <img 
               ref={imgRef}
-              src={`/api/image-proxy?url=${encodeURIComponent(selectedItem.image)}`} 
+              src={`https://corsproxy.io/?${encodeURIComponent(selectedItem.image)}`} 
               alt="Target"
               crossOrigin="anonymous"
               style={{ width: '100%', borderRadius: '12px', background: '#1c1c24' }}
