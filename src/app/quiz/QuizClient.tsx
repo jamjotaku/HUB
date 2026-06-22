@@ -26,16 +26,25 @@ export default function QuizClient({ data }: { data: CosplayData[] }) {
 
   const generateQuestion = (diff: Difficulty = difficulty) => {
     setAnsweredState(null);
-    const randomItem = data[Math.floor(Math.random() * data.length)];
-    setCurrentQuestion(randomItem);
+    let randomItem: CosplayData;
 
     if (diff === 'hard') {
-      // 上級: コスプレイヤー名を当てる
+      // 上級: 写真の数による偏りを防ぐため、先にランダムな「コスプレイヤー」を選ぶ
+      const randomCosplayer = uniqueCosplayers[Math.floor(Math.random() * uniqueCosplayers.length)];
+      const cosplayerPhotos = data.filter(item => item.cosplayer === randomCosplayer);
+      randomItem = cosplayerPhotos[Math.floor(Math.random() * cosplayerPhotos.length)];
+      setCurrentQuestion(randomItem);
+
       const incorrectOptions = uniqueCosplayers.filter(c => c !== randomItem.cosplayer);
       const selectedIncorrect = shuffle(incorrectOptions).slice(0, 3);
       setOptions(shuffle([randomItem.cosplayer, ...selectedIncorrect]));
     } else {
-      // 初級・中級: VTuber名を当てる
+      // 初級・中級: 写真の数による偏りを防ぐため、先にランダムな「VTuber」を選ぶ
+      const randomVtuber = uniqueMembers[Math.floor(Math.random() * uniqueMembers.length)];
+      const vtuberPhotos = data.filter(item => item.member === randomVtuber);
+      randomItem = vtuberPhotos[Math.floor(Math.random() * vtuberPhotos.length)];
+      setCurrentQuestion(randomItem);
+
       const incorrectOptions = uniqueMembers.filter(m => m !== randomItem.member);
       const selectedIncorrect = shuffle(incorrectOptions).slice(0, 3);
       setOptions(shuffle([randomItem.member, ...selectedIncorrect]));
