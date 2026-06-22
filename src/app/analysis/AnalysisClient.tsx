@@ -58,7 +58,8 @@ export default function AnalysisClient({ data }: { data: CosplayData[] }) {
   };
 
   const analyzeImage = () => {
-    if (!imgRef.current) return;
+    const currentImg = imgRef.current;
+    if (!currentImg) return;
     setIsAnalyzing(true);
     
     setTimeout(() => {
@@ -67,11 +68,11 @@ export default function AnalysisClient({ data }: { data: CosplayData[] }) {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
         
-        canvas.width = imgRef.current.naturalWidth;
-        canvas.height = imgRef.current.naturalHeight;
+        canvas.width = currentImg.naturalWidth;
+        canvas.height = currentImg.naturalHeight;
         
         // CORS回避用プロキシを経由して読み込んだ画像を描画
-        ctx.drawImage(imgRef.current, 0, 0);
+        ctx.drawImage(currentImg, 0, 0);
         
         const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
         const colors = extractColors(imgData, 5);
