@@ -121,6 +121,7 @@ export default function QuizClient({ data }: { data: CosplayData[] }) {
         <img 
           src={currentQuestion.image} 
           alt="Quiz image" 
+          onError={() => generateQuestion(difficulty)}
           style={{ 
             maxWidth: '100%', 
             maxHeight: '400px', 

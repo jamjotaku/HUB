@@ -87,6 +87,10 @@ export default function Gallery({ initialData }: { initialData: CosplayData[] })
               src={item.image} 
               alt={`Cosplay by ${item.cosplayer}`}
               loading="lazy"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (target.parentElement) target.parentElement.style.display = 'none';
+              }}
               style={{ width: '100%', display: 'block', objectFit: 'cover' }}
             />
             <div className="card-content">

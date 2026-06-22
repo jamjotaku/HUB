@@ -165,7 +165,15 @@ export default function AnalysisClient({ data }: { data: CosplayData[] }) {
               transition: 'border 0.2s'
             }}
           >
-            <img src={item.image} alt="Sample" style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', display: 'block' }} />
+            <img 
+              src={item.image} 
+              alt="Sample" 
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                if (target.parentElement) target.parentElement.style.display = 'none';
+              }}
+              style={{ width: '100%', aspectRatio: '1/1', objectFit: 'cover', display: 'block' }} 
+            />
           </div>
         ))}
       </div>
